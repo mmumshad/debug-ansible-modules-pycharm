@@ -1,47 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Debug Ansible Modules in PyCharm on Windows by mmumshad</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-dark.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
     <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <title>Debug Ansible Modules in PyCharm on Windows by mmumshad</title>
   </head>
+
   <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/mmumshad/debug-ansible-modules-pycharm">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/mmumshad/debug-ansible-modules-pycharm/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/mmumshad/debug-ansible-modules-pycharm/tarball/master">TAR</a></li>
-          <li class="title">DOWNLOADS</li>
-        </nav>
-      </div><!-- end header -->
+    <div id="container">
+      <div class="inner">
 
-    <div class="wrapper">
-
-      <section>
-        <div id="title">
+        <header>
           <h1>Debug Ansible Modules in PyCharm on Windows</h1>
-          <p>Debug Ansible Modules remotely in PyCharm on windows</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/mmumshad">mmumshad</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
-        </div>
+          <h2>Debug Ansible Modules remotely in PyCharm on windows</h2>
+        </header>
 
-        <h3>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/mmumshad/debug-ansible-modules-pycharm/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/mmumshad/debug-ansible-modules-pycharm/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/mmumshad/debug-ansible-modules-pycharm" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h3>
 <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h3>
 
-<p>I have been developing custom (Ansible)[<a href="https://www.ansible.com/">https://www.ansible.com/</a>] modules on my windows system using <a href="https://www.jetbrains.com/pycharm/">JetBrains PyCharm IDE</a>. Below I describe some challenges and best practices on the development and how to debug remotely. </p>
+<p>I have been developing custom <a href="https://www.ansible.com/">Ansible</a> modules on my windows system using <a href="https://www.jetbrains.com/pycharm/">JetBrains PyCharm IDE</a>. Below I describe some challenges and best practices on the development and how to debug remotely. </p>
 
 <p>For information about developing custom modules using Ansible check <a href="http://docs.ansible.com/ansible/developing_modules.html">here</a>.</p>
 
@@ -53,34 +46,223 @@
 <p>In this article I explain how to debug using the IDE debugger on a windows system by running the module remotely on a Ansible controller Linux system.</p>
 
 <h3>
-<a id="development-environment-setup" class="anchor" href="#development-environment-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Development Environment Setup</h3>
+<a id="development-environment-setup-and-pre-requisites" class="anchor" href="#development-environment-setup-and-pre-requisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Development Environment Setup and Pre-requisites</h3>
 
 <p>Below is my development environment:</p>
 
 <ul>
 <li>Development system - Windows 7</li>
-<li>Development IDE - <a href="https://www.jetbrains.com/pycharm/">JetBrains PyCharm IDE</a>
-</li>
+<li>Development IDE - <a href="https://www.jetbrains.com/pycharm/">JetBrains PyCharm IDE</a> Professional Edition *</li>
 <li>Ansible Controller - OpenSuse Linux Machine with Ansible installed. Must have network connectivity with the Development Windows System.</li>
+<li>Must have the Ansible devel package downloaded on the Linux Controller Machine to test custom modules - <a href="https://github.com/ansible/ansible/blob/devel/hacking/test-module">test-module</a>. For instructions on setting this up, please see <a href="http://docs.ansible.com/ansible/intro_installation.html">Installation</a>.</li>
 </ul>
 
 <blockquote>
-<p>Must have a <a href="https://www.jetbrains.com/pycharm/download">Professional Edition</a> for remote debugging features. Community edition <a href="https://www.jetbrains.com/pycharm/features/">does not</a> support remote debugging. If you have not purchased already You can get a free trial of Professional Edition for 30 days.</p>
+<p>* Must have a <a href="https://www.jetbrains.com/pycharm/download">JetBrains PyCharm Professional Edition</a> for remote debugging features. Community edition <a href="https://www.jetbrains.com/pycharm/features/">does not</a> support remote debugging. If you have not purchased already You can get a free trial of Professional Edition for 30 days.</p>
 </blockquote>
+
+<h3>
+<a id="develop-custom-ansible-module" class="anchor" href="#develop-custom-ansible-module" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Develop Custom Ansible Module</h3>
+
+<p>Create a new project in JetBrains PyCharm and create a new file in the project named - 'OSCheckModule.py'</p>
+
+<p>If you have never developed a custom Ansible module, start <a href="http://docs.ansible.com/ansible/developing_modules.html">here</a>.
+Start from the Common base template and build your module. Here I have a custom module called <strong>OSCheckModule</strong> that checks the OS flavor against a given input :</p>
+
+<pre><code>#!/usr/bin/python
+
+try:
+    import json
+except ImportError:
+    import simplejson as json
+
+import os
+
+DOCUMENTATION = '''
+---
+module: OSCheckModule
+short_description: A custom module to check OS of target machine.
+description:
+        - A custom module to check OS of target machine.
+options:
+  os_name:
+    description:
+      - Name of OS to check
+    required: true
+'''
+
+EXAMPLES = '''
+# Example
+module_name:
+    os_name: Linux
+'''
+
+
+def main():
+    module = AnsibleModule(
+        argument_spec=dict(
+            os_name=dict(required=True),
+        )
+    )
+
+    # Retreive parameters
+    os_name = module.params['os_name']
+
+    # Check for OS
+    if os_name in os.uname():
+        # Successfull Exit
+        module.exit_json(changed=True, msg="OS Match")
+    else:
+        # Fail Exit
+        module.fail_json(msg="OS Mismatch. OS =" + os.uname()[0])
+
+
+from ansible.module_utils.basic import AnsibleModule
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+
+<p>We are ready with our first custom module. We will now copy this fiel to our Linux Controller Machine for execution. We can use PyCharm's remote Python interpretor feature to push and run the script remotely on the Linux Controller machine without having to manually copy over. Read about it <a href="https://www.jetbrains.com/help/pycharm/2016.1/configuring-remote-python-interpreters.html">here</a>. Will blog about it another time.</p>
+
+<h3>
+<a id="executing-custom-ansible-module" class="anchor" href="#executing-custom-ansible-module" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Executing Custom Ansible Module</h3>
+
+<p>I have copied my new module file to the path <code>/opt/ansible/custom_modules</code> in my Linux Ansible Controller Machine. I can now use the <a href="https://github.com/ansible/ansible/blob/devel/hacking/test-module">test-module</a> to test and execute my new custom ansible module. </p>
+
+<p>Syntax:</p>
+
+<pre><code>/opt/ansible/ansible-devel/hacking/test-module -m &lt;module file&gt; -a &lt;module arguments&gt;
+</code></pre>
+
+<p>Example:</p>
+
+<pre><code>root:/opt/ansible/custom_modules # /opt/ansible/ansible-devel/hacking/test-module -m OSCheckModule.py -a os_name=Linux
+* including generated source, if any, saving to: /root/.ansible_module_generated
+* this may offset any line numbers in tracebacks/debuggers!
+***********************************
+RAW OUTPUT
+
+{"msg": "OS Match", "invocation": {"module_args": {"os_name": "Linux"}}, "changed": true}
+
+
+***********************************
+PARSED OUTPUT
+{
+    "changed": true,
+    "invocation": {
+        "module_args": {
+            "os_name": "Linux"
+        }
+    },
+    "msg": "OS Match"
+}
+
+</code></pre>
+
+<p>Wow!! we have successfully created and tested our first Custom Ansible Module.</p>
+
+<h3>
+<a id="debugging-custom-ansible-module" class="anchor" href="#debugging-custom-ansible-module" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Debugging Custom Ansible Module</h3>
+
+<p>We would now like to debug our custom ansible module using PyCharm debugger. For example we would like to set a break point at Line 46 to inspect the result of os.uname() call. We wouldwill use Python <a href="https://pypi.python.org/pypi/pydevd">pydevd</a> for this purpose.</p>
+
+<h4>
+<a id="install-pydevd-on-the-linux-machine-controller" class="anchor" href="#install-pydevd-on-the-linux-machine-controller" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install pydevd on the Linux Machine Controller</h4>
+
+<pre><code>pip install pydevd
+</code></pre>
+
+<h4>
+<a id="setup-pycharm-debug-server" class="anchor" href="#setup-pycharm-debug-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup PyCharm Debug Server</h4>
+
+<p>Create a new Project in PyCharm and go to <strong>Run -&gt; Edit Configurations..</strong></p>
+
+<p>Click on the plus sign in top left corner and select Python Remote Debug. (You must be using PyCharm Professional Edition to have this feature. Ths is not available in PyCharm Community Edition.)</p>
+
+<p><img src="https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/pycharm_new_remote_debugger.png" alt="remote debugger"></p>
+
+<p>Provide the following information :</p>
+
+<ul>
+<li>
+<strong>Name</strong>: Give a name to the debugger - OSCheckModule_Debugger</li>
+<li>
+<strong>Local host name</strong>: Enter the IP of the Windows development system. Make sure you can ping and establish connectivity to this IP from your Linux System</li>
+<li>
+<strong>Port</strong> - Set port to 54654</li>
+<li>Path mappings - Ignore</li>
+<li> Leave the remaining settings to default</li>
+</ul>
+
+<p><img src="https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/py_charm_debugger_new_configuration.PNG" alt="remote debugger configuratin"></p>
+
+<p>Start the PyCharm Debug server by clicking on the debug optionbutton in the top right corner</p>
+
+<p><img src="https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/pycharm_debug_icon.PNG" alt="debug button"></p>
+
+<p>The Debug server starts and starts listening for connections</p>
+
+<p><img src="https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/pycharm_debug_server.PNG" alt="debug server"></p>
+
+<p>Note down the instructions provided to configure source code:</p>
+
+<pre><code>Use the following code to connect to the debugger:
+import pydevd
+pydevd.settrace('10.123.12.214', port=54654, stdoutToServer=True, stderrToServer=True)
+</code></pre>
+
+<h4>
+<a id="configure-source-code" class="anchor" href="#configure-source-code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configure source code:</h4>
+
+<p>Insert the following lines in the source code of the custom module - OSCheckModule.py</p>
+
+<p>Insert import pydevd line at the top</p>
+
+<pre><code>import pydevd
+</code></pre>
+
+<p>Insert the below line to set breakpoint at line 46</p>
+
+<pre><code>pydevd.settrace('10.123.12.214', port=54654, stdoutToServer=True, stderrToServer=True)
+</code></pre>
+
+<h4>
+<a id="start-debugging" class="anchor" href="#start-debugging" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start debugging</h4>
+
+<p>Copy the source code to the linux system, if you have made the changes on your windows system. Run the module using test-module:</p>
+
+<pre><code>root:/opt/ansible/custom_modules # /opt/ansible/ansible-devel/hacking/test-module -m OSCheckModule.py -a os_name=Linux
+</code></pre>
+
+<p>If connectivity is established between the Linux and Windows systems, a prompt will appear in PyCharm in windows. </p>
+
+<p><img src="https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/py_charm_debugger_prompt.PNG" alt="debug server prompt"></p>
+
+<p>Select the <strong>Download Source</strong> option to downlaod the source code to windows machine. The source will be downloaded the breakpoint is set. You can line step through the remainder of the code and use Debug console to view variables and their values.</p>
+
+<p><img src="https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/pycharm_debug_variables.PNG" alt="debug server console"></p>
+
+<p>Thank you for reading. Please feel free to comment, propose better solutions.</p>
 
 <h3>
 <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
-<p>You can @mention a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>Mumshad Mannambeth (<a href="https://github.com/mmumshad" class="user-mention">@mmumshad</a>)</p>
 
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
-      </section>
+<p>See a problem, have an issue? Raise an issue at the <a href="https://github.com/mmumshad/debug-ansible-modules-pycharm">github page</a></p>
+        </section>
 
+        <footer>
+          Debug Ansible Modules in PyCharm on Windows is maintained by <a href="https://github.com/mmumshad">mmumshad</a><br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
   </body>
 </html>
