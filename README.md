@@ -24,7 +24,7 @@ Create a new project in JetBrains PyCharm and create a new file in the project n
 If you have never developed a custom Ansible module, start [here](http://docs.ansible.com/ansible/developing_modules.html).
 Start from the Common base template and build your module. Here I have a custom module called **OSCheckModule** that checks the OS flavor against a given input :
 
-```
+```python
 #!/usr/bin/python
 
 try:
