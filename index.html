@@ -1,45 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Debug Ansible Modules in PyCharm on Windows by mmumshad</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-dark.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/main.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
     <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <title>Debug Ansible Modules in PyCharm on Windows by mmumshad</title>
   </head>
+
   <body>
+    <div id="container">
+      <div class="inner">
 
-      <header>
-        <h1>Debug Ansible Modules in PyCharm on Windows</h1>
-        <p>Debug Ansible Modules remotely in PyCharm on windows</p>
-      </header>
+        <header>
+          <h1>Debug Ansible Modules in PyCharm on Windows</h1>
+          <h2>Debug Ansible Modules remotely in PyCharm on windows</h2>
+        </header>
 
-      <div id="banner">
-        <span id="logo"></span>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/mmumshad/debug-ansible-modules-pycharm/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/mmumshad/debug-ansible-modules-pycharm/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/mmumshad/debug-ansible-modules-pycharm" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
 
-        <a href="https://github.com/mmumshad/debug-ansible-modules-pycharm" class="button fork"><strong>View On GitHub</strong></a>
-        <div class="downloads">
-          <span>Downloads:</span>
-          <ul>
-            <li><a href="https://github.com/mmumshad/debug-ansible-modules-pycharm/zipball/master" class="button">ZIP</a></li>
-            <li><a href="https://github.com/mmumshad/debug-ansible-modules-pycharm/tarball/master" class="button">TAR</a></li>
-          </ul>
-        </div>
-      </div><!-- end banner -->
+        <hr>
 
-    <div class="wrapper">
-      <nav>
-        <ul></ul>
-      </nav>
-      <section>
-        <h3>
+        <section id="main_content">
+          <h3>
 <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h3>
 
 <p>I have been developing custom <a href="https://www.ansible.com/">Ansible</a> modules on my windows system using <a href="https://www.jetbrains.com/pycharm/">JetBrains PyCharm IDE</a>. Below I describe some challenges and best practices on the development and how to debug remotely. </p>
@@ -77,59 +69,58 @@
 <p>If you have never developed a custom Ansible module, start <a href="http://docs.ansible.com/ansible/developing_modules.html">here</a>.
 Start from the Common base template and build your module. Here I have a custom module called <strong>OSCheckModule</strong> that checks the OS flavor against a given input :</p>
 
-<pre><code>#!/usr/bin/python
+<div class="highlight highlight-source-python"><pre><span class="pl-c">#!/usr/bin/python</span>
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
+<span class="pl-k">try</span>:
+    <span class="pl-k">import</span> json
+<span class="pl-k">except</span> <span class="pl-c1">ImportError</span>:
+    <span class="pl-k">import</span> simplejson <span class="pl-k">as</span> json
 
-import os
+<span class="pl-k">import</span> os
 
-DOCUMENTATION = '''
----
-module: OSCheckModule
-short_description: A custom module to check OS of target machine.
-description:
-        - A custom module to check OS of target machine.
-options:
-  os_name:
-    description:
-      - Name of OS to check
-    required: true
-'''
+<span class="pl-c1">DOCUMENTATION</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'''</span></span>
+<span class="pl-s">---</span>
+<span class="pl-s">module: OSCheckModule</span>
+<span class="pl-s">short_description: A custom module to check OS of target machine.</span>
+<span class="pl-s">description:</span>
+<span class="pl-s">        - A custom module to check OS of target machine.</span>
+<span class="pl-s">options:</span>
+<span class="pl-s">  os_name:</span>
+<span class="pl-s">    description:</span>
+<span class="pl-s">      - Name of OS to check</span>
+<span class="pl-s">    required: true</span>
+<span class="pl-s"><span class="pl-pds">'''</span></span>
 
-EXAMPLES = '''
-# Example
-module_name:
-    os_name: Linux
-'''
+<span class="pl-c1">EXAMPLES</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'''</span></span>
+<span class="pl-s"># Example</span>
+<span class="pl-s">module_name:</span>
+<span class="pl-s">    os_name: Linux</span>
+<span class="pl-s"><span class="pl-pds">'''</span></span>
 
 
-def main():
-    module = AnsibleModule(
-        argument_spec=dict(
-            os_name=dict(required=True),
+<span class="pl-k">def</span> <span class="pl-en">main</span>():
+    module <span class="pl-k">=</span> AnsibleModule(
+        <span class="pl-v">argument_spec</span><span class="pl-k">=</span><span class="pl-c1">dict</span>(
+            <span class="pl-v">os_name</span><span class="pl-k">=</span><span class="pl-c1">dict</span>(<span class="pl-v">required</span><span class="pl-k">=</span><span class="pl-c1">True</span>),
         )
     )
 
-    # Retreive parameters
-    os_name = module.params['os_name']
+    <span class="pl-c"># Retreive parameters</span>
+    os_name <span class="pl-k">=</span> module.params[<span class="pl-s"><span class="pl-pds">'</span>os_name<span class="pl-pds">'</span></span>]
 
-    # Check for OS
-    if os_name in os.uname():
-        # Successfull Exit
-        module.exit_json(changed=True, msg="OS Match")
-    else:
-        # Fail Exit
-        module.fail_json(msg="OS Mismatch. OS =" + os.uname()[0])
+    <span class="pl-c"># Check for OS</span>
+    <span class="pl-k">if</span> os_name <span class="pl-k">in</span> os.uname():
+        <span class="pl-c"># Successfull Exit</span>
+        module.exit_json(<span class="pl-v">changed</span><span class="pl-k">=</span><span class="pl-c1">True</span>, <span class="pl-v">msg</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>OS Match<span class="pl-pds">"</span></span>)
+    <span class="pl-k">else</span>:
+        <span class="pl-c"># Fail Exit</span>
+        module.fail_json(<span class="pl-v">msg</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>OS Mismatch. OS =<span class="pl-pds">"</span></span> <span class="pl-k">+</span> os.uname()[<span class="pl-c1">0</span>])
 
 
-from ansible.module_utils.basic import AnsibleModule
+<span class="pl-k">from</span> ansible.module_utils.basic <span class="pl-k">import</span> AnsibleModule
 
-if __name__ == '__main__':
-    main()
-</code></pre>
+<span class="pl-k">if</span> <span class="pl-c1">__name__</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">'</span>__main__<span class="pl-pds">'</span></span>:
+    main()</pre></div>
 
 <p>We are ready with our first custom module. We will now copy this fiel to our Linux Controller Machine for execution. We can use PyCharm's remote Python interpretor feature to push and run the script remotely on the Linux Controller machine without having to manually copy over. Read about it <a href="https://www.jetbrains.com/help/pycharm/2016.1/configuring-remote-python-interpreters.html">here</a>. Will blog about it another time.</p>
 
@@ -140,33 +131,31 @@ if __name__ == '__main__':
 
 <p>Syntax:</p>
 
-<pre><code>/opt/ansible/ansible-devel/hacking/test-module -m &lt;module file&gt; -a &lt;module arguments&gt;
-</code></pre>
+<div class="highlight highlight-text-shell-session"><pre><span class="pl-mo">/opt/ansible/ansible-devel/hacking/test-module -m &lt;module file&gt; -a &lt;module arguments&gt;</span></pre></div>
 
 <p>Example:</p>
 
-<pre><code>root:/opt/ansible/custom_modules # /opt/ansible/ansible-devel/hacking/test-module -m OSCheckModule.py -a os_name=Linux
-* including generated source, if any, saving to: /root/.ansible_module_generated
-* this may offset any line numbers in tracebacks/debuggers!
-***********************************
-RAW OUTPUT
+<div class="highlight highlight-text-shell-session"><pre><span class="pl-e">root:/opt/ansible/custom_modules</span> # <span class="pl-s1">/opt/ansible/ansible-devel/hacking/test-module -m OSCheckModule.py -a os_name=Linux</span>
+<span class="pl-mo">* including generated source, if any, saving to: /root/.ansible_module_generated</span>
+<span class="pl-mo">* this may offset any line numbers in tracebacks/debuggers!</span>
+<span class="pl-mo">***********************************</span>
+<span class="pl-mo">RAW OUTPUT</span>
 
-{"msg": "OS Match", "invocation": {"module_args": {"os_name": "Linux"}}, "changed": true}
+<span class="pl-mo">{"msg": "OS Match", "invocation": {"module_args": {"os_name": "Linux"}}, "changed": true}</span>
 
 
-***********************************
-PARSED OUTPUT
-{
-    "changed": true,
-    "invocation": {
-        "module_args": {
-            "os_name": "Linux"
-        }
-    },
-    "msg": "OS Match"
-}
-
-</code></pre>
+<span class="pl-mo">***********************************</span>
+<span class="pl-mo">PARSED OUTPUT</span>
+<span class="pl-mo">{</span>
+<span class="pl-mo">    "changed": true,</span>
+<span class="pl-mo">    "invocation": {</span>
+<span class="pl-mo">        "module_args": {</span>
+<span class="pl-mo">            "os_name": "Linux"</span>
+<span class="pl-mo">        }</span>
+<span class="pl-mo">    },</span>
+<span class="pl-mo">    "msg": "OS Match"</span>
+<span class="pl-mo">}</span>
+</pre></div>
 
 <p>Wow!! we have successfully created and tested our first Custom Ansible Module.</p>
 
@@ -178,8 +167,7 @@ PARSED OUTPUT
 <h4>
 <a id="install-pydevd-on-the-linux-machine-controller" class="anchor" href="#install-pydevd-on-the-linux-machine-controller" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install pydevd on the Linux Machine Controller</h4>
 
-<pre><code>pip install pydevd
-</code></pre>
+<div class="highlight highlight-text-shell-session"><pre><span class="pl-mo">pip install pydevd</span></pre></div>
 
 <h4>
 <a id="setup-pycharm-debug-server" class="anchor" href="#setup-pycharm-debug-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup PyCharm Debug Server</h4>
@@ -215,10 +203,9 @@ PARSED OUTPUT
 
 <p>Note down the instructions provided to configure source code:</p>
 
-<pre><code>Use the following code to connect to the debugger:
-import pydevd
-pydevd.settrace('10.123.12.214', port=54654, stdoutToServer=True, stderrToServer=True)
-</code></pre>
+<div class="highlight highlight-text-shell-session"><pre><span class="pl-mo">Use the following code to connect to the debugger:</span>
+<span class="pl-mo">import pydevd</span>
+<span class="pl-mo">pydevd.settrace('10.123.12.214', port=54654, stdoutToServer=True, stderrToServer=True)</span></pre></div>
 
 <h4>
 <a id="configure-source-code" class="anchor" href="#configure-source-code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configure source code:</h4>
@@ -227,21 +214,18 @@ pydevd.settrace('10.123.12.214', port=54654, stdoutToServer=True, stderrToServer
 
 <p>Insert import pydevd line at the top</p>
 
-<pre><code>import pydevd
-</code></pre>
+<div class="highlight highlight-source-python"><pre><span class="pl-k">import</span> pydevd</pre></div>
 
 <p>Insert the below line to set breakpoint at line 46</p>
 
-<pre><code>pydevd.settrace('10.123.12.214', port=54654, stdoutToServer=True, stderrToServer=True)
-</code></pre>
+<div class="highlight highlight-source-python"><pre>pydevd.settrace(<span class="pl-s"><span class="pl-pds">'</span>10.123.12.214<span class="pl-pds">'</span></span>, <span class="pl-v">port</span><span class="pl-k">=</span><span class="pl-c1">54654</span>, <span class="pl-v">stdoutToServer</span><span class="pl-k">=</span><span class="pl-c1">True</span>, <span class="pl-v">stderrToServer</span><span class="pl-k">=</span><span class="pl-c1">True</span>)</pre></div>
 
 <h4>
 <a id="start-debugging" class="anchor" href="#start-debugging" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start debugging</h4>
 
 <p>Copy the source code to the linux system, if you have made the changes on your windows system. Run the module using test-module:</p>
 
-<pre><code>root:/opt/ansible/custom_modules # /opt/ansible/ansible-devel/hacking/test-module -m OSCheckModule.py -a os_name=Linux
-</code></pre>
+<div class="highlight highlight-text-shell-session"><pre><span class="pl-e">root:/opt/ansible/custom_modules</span> # <span class="pl-s1">/opt/ansible/ansible-devel/hacking/test-module -m OSCheckModule.py -a os_name=Linux</span></pre></div>
 
 <p>If connectivity is established between the Linux and Windows systems, a prompt will appear in PyCharm in windows. </p>
 
@@ -262,13 +246,15 @@ pydevd.settrace('10.123.12.214', port=54654, stdoutToServer=True, stderrToServer
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
 
 <p>See a problem, have an issue? Raise an issue at the <a href="https://github.com/mmumshad/debug-ansible-modules-pycharm">github page</a></p>
-      </section>
-      <footer>
-        <p>Project maintained by <a href="https://github.com/mmumshad">mmumshad</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
-      </footer>
+        </section>
+
+        <footer>
+          Debug Ansible Modules in PyCharm on Windows is maintained by <a href="https://github.com/mmumshad">mmumshad</a><br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
   </body>
 </html>
