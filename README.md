@@ -133,7 +133,7 @@ Create a new Project in PyCharm and go to **Run -> Edit Configurations..**
 
 Click on the plus sign in top left corner and select Python Remote Debug. (You must be using PyCharm Professional Edition to have this feature. Ths is not available in PyCharm Community Edition.)
 
-[picture here - pycharm remote debugger]
+![remote debugger](https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/pycharm_new_remote_debugger.png)
 
 Provide the following information :
 * **Name**: Give a name to the debugger - OSCheckModule_Debugger
@@ -142,13 +142,15 @@ Provide the following information :
 * Path mappings - Ignore
 *  Leave the remaining settings to default
 
+![remote debugger configuratin](https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/py_charm_debugger_new_configuration.PNG)
+
 Start the PyCharm Debug server by clicking on the debug optionbutton in the top right corner
 
-[picture here start debug server]
+![debug button](https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/pycharm_debug_icon.PNG)
 
 The Debug server starts and starts listening for connections
 
-[pciture debug server starts]
+![debug server](https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/pycharm_debug_server.PNG)
 
 Note down the instructions provided to configure source code:
 ```
@@ -182,11 +184,11 @@ root:/opt/ansible/custom_modules # /opt/ansible/ansible-devel/hacking/test-modul
 
 If connectivity is established between the Linux and Windows systems, a prompt will appear in PyCharm in windows. 
 
-[picture here debug prompt]
+![debug server prompt](https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/py_charm_debugger_prompt.PNG)
 
 Select the **Download Source** option to downlaod the source code to windows machine. The source will be downloaded the breakpoint is set. You can line step through the remainder of the code and use Debug console to view variables and their values.
 
-[picture here debug console]
+![debug server console](https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/pycharm_debug_variables.PNG)
 
 Thank you for reading. Please feel free to comment, propose better solutions.
 
