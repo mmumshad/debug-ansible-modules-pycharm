@@ -1,37 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
     <title>Debug Ansible Modules in PyCharm on Windows by mmumshad</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   </head>
-
   <body>
-    <div id="container">
-      <div class="inner">
 
-        <header>
-          <h1>Debug Ansible Modules in PyCharm on Windows</h1>
-          <h2>Debug Ansible Modules remotely in PyCharm on windows</h2>
-        </header>
+      <header>
+        <h1>Debug Ansible Modules in PyCharm on Windows</h1>
+        <p>Debug Ansible Modules remotely in PyCharm on windows</p>
+      </header>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/mmumshad/debug-ansible-modules-pycharm/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/mmumshad/debug-ansible-modules-pycharm/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/mmumshad/debug-ansible-modules-pycharm" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+      <div id="banner">
+        <span id="logo"></span>
 
-        <hr>
+        <a href="https://github.com/mmumshad/debug-ansible-modules-pycharm" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/mmumshad/debug-ansible-modules-pycharm/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/mmumshad/debug-ansible-modules-pycharm/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
 
-        <section id="main_content">
-          <h3>
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h3>
 <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h3>
 
 <p>I have been developing custom <a href="https://www.ansible.com/">Ansible</a> modules on my windows system using <a href="https://www.jetbrains.com/pycharm/">JetBrains PyCharm IDE</a>. Below I describe some challenges and best practices on the development and how to debug remotely. </p>
@@ -180,7 +188,7 @@ PARSED OUTPUT
 
 <p>Click on the plus sign in top left corner and select Python Remote Debug. (You must be using PyCharm Professional Edition to have this feature. Ths is not available in PyCharm Community Edition.)</p>
 
-<p><img src="https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/pycharm_new_remote_debugger.png" alt="remote debugger"></p>
+<p><img src="https://cdn.rawgit.com/mmumshad/debug-ansible-modules-pycharm/master/screenshots/pycharm_new_remote_debugger.png" alt="remote debugger"></p>
 
 <p>Provide the following information :</p>
 
@@ -195,15 +203,15 @@ PARSED OUTPUT
 <li> Leave the remaining settings to default</li>
 </ul>
 
-<p><img src="https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/py_charm_debugger_new_configuration.PNG" alt="remote debugger configuratin"></p>
+<p><img src="https://cdn.rawgit.com/mmumshad/debug-ansible-modules-pycharm/master/screenshots/py_charm_debugger_new_configuration.PNG" alt="remote debugger configuratin"></p>
 
 <p>Start the PyCharm Debug server by clicking on the debug optionbutton in the top right corner</p>
 
-<p><img src="https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/pycharm_debug_icon.PNG" alt="debug button"></p>
+<p><img src="https://cdn.rawgit.com/mmumshad/debug-ansible-modules-pycharm/master/screenshots/pycharm_debug_icon.PNG" alt="debug button"></p>
 
 <p>The Debug server starts and starts listening for connections</p>
 
-<p><img src="https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/pycharm_debug_server.PNG" alt="debug server"></p>
+<p><img src="https://cdn.rawgit.com/mmumshad/debug-ansible-modules-pycharm/master/screenshots/pycharm_debug_server.PNG" alt="debug server"></p>
 
 <p>Note down the instructions provided to configure source code:</p>
 
@@ -237,7 +245,7 @@ pydevd.settrace('10.123.12.214', port=54654, stdoutToServer=True, stderrToServer
 
 <p>If connectivity is established between the Linux and Windows systems, a prompt will appear in PyCharm in windows. </p>
 
-<p><img src="https://github.com/mmumshad/debug-ansible-modules-pycharm/blob/master/screenshots/py_charm_debugger_prompt.PNG" alt="debug server prompt"></p>
+<p><img src="https://cdn.rawgit.com/mmumshad/debug-ansible-modules-pycharm/master/screenshots/py_charm_debugger_prompt.PNG" alt="debug server prompt"></p>
 
 <p>Select the <strong>Download Source</strong> option to downlaod the source code to windows machine. The source will be downloaded the breakpoint is set. You can line step through the remainder of the code and use Debug console to view variables and their values.</p>
 
@@ -254,15 +262,13 @@ pydevd.settrace('10.123.12.214', port=54654, stdoutToServer=True, stderrToServer
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
 
 <p>See a problem, have an issue? Raise an issue at the <a href="https://github.com/mmumshad/debug-ansible-modules-pycharm">github page</a></p>
-        </section>
-
-        <footer>
-          Debug Ansible Modules in PyCharm on Windows is maintained by <a href="https://github.com/mmumshad">mmumshad</a><br>
-          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
-
-        
-      </div>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/mmumshad">mmumshad</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
     </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
   </body>
 </html>
