@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Debug Ansible Modules in PyCharm on Windows by mmumshad</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/mmumshad/debug-ansible-modules-pycharm">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/mmumshad/debug-ansible-modules-pycharm/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/mmumshad/debug-ansible-modules-pycharm/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Debug Ansible Modules in PyCharm on Windows</h1>
+          <p>Debug Ansible Modules remotely in PyCharm on windows</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/mmumshad">mmumshad</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h3>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h3>
+
+<p>I have been developing custom (Ansible)[<a href="https://www.ansible.com/">https://www.ansible.com/</a>] modules on my windows system using <a href="https://www.jetbrains.com/pycharm/">JetBrains PyCharm IDE</a>. Below I describe some challenges and best practices on the development and how to debug remotely. </p>
+
+<p>For information about developing custom modules using Ansible check <a href="http://docs.ansible.com/ansible/developing_modules.html">here</a>.</p>
+
+<h2>
+<a id="challenge" class="anchor" href="#challenge" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Challenge</h2>
+
+<p>Though Ansible supports configuring Windows systems, Ansible itself <a href="http://docs.ansible.com/ansible/intro_windows.html#reminder-you-must-have-a-linux-control-machine">cannot</a> be run on a windows control machine. If you are developing custom Ansible modules on a Windows Machine you might find it difficult to debug. This can be difficult if you are used to debugging in the IDE. The <a href="https://github.com/ansible/ansible/blob/devel/hacking/test-module">test-module</a> offers some debug options if you are good with debugging in the Linux console. </p>
+
+<p>In this article I explain how to debug using the IDE debugger on a windows system by running the module remotely on a Ansible controller Linux system.</p>
+
+<h3>
+<a id="development-environment-setup" class="anchor" href="#development-environment-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Development Environment Setup</h3>
+
+<p>Below is my development environment:</p>
+
+<ul>
+<li>Development system - Windows 7</li>
+<li>Development IDE - <a href="https://www.jetbrains.com/pycharm/">JetBrains PyCharm IDE</a>
+</li>
+<li>Ansible Controller - OpenSuse Linux Machine with Ansible installed. Must have network connectivity with the Development Windows System.</li>
+</ul>
+
+<blockquote>
+<p>Must have a <a href="https://www.jetbrains.com/pycharm/download">Professional Edition</a> for remote debugging features. Community edition <a href="https://www.jetbrains.com/pycharm/features/">does not</a> support remote debugging. If you have not purchased already You can get a free trial of Professional Edition for 30 days.</p>
+</blockquote>
+
+<h3>
+<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+
+<p>You can @mention a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+
+<h3>
+<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
+
+<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
